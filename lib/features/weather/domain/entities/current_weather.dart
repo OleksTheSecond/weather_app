@@ -6,8 +6,8 @@ import 'package:weather_app/features/weather/domain/entities/weather.dart';
 import 'package:weather_app/features/weather/domain/entities/wind.dart';
 import 'package:equatable/equatable.dart';
 
-class CurrentWeather extends Equatable {
-  const CurrentWeather({
+class CurrentWeatherEntity extends Equatable {
+  const CurrentWeatherEntity({
     required this.coordinates,
     required this.weather,
     required this.base,
