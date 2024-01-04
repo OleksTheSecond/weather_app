@@ -1,10 +1,11 @@
 import 'package:geolocator/geolocator.dart';
-import 'package:weather_app/features/weather/domain/entities/coordinates.dart';
+import 'package:weather_app/core/resources/data_state.dart';
+import 'package:weather_app/features/weather/data/models/coordinates.dart';
 import 'package:weather_app/features/weather/domain/repository/coordinates_repo.dart';
 
 class CoordinatesRepositoryImpl extends CoordinatesRepository {
   @override
-  Future<CoordinatesEntity?> getLocation() async {
+  Future<DataState<CoordinatesModel>> getLocation() async {
     LocationPermission permision = await Geolocator.checkPermission();
 
     if (permision == LocationPermission.denied) {
@@ -15,10 +16,11 @@ class CoordinatesRepositoryImpl extends CoordinatesRepository {
         permision == LocationPermission.whileInUse) {
       Position position = await Geolocator.getCurrentPosition(
           desiredAccuracy: LocationAccuracy.high);
-      return CoordinatesEntity(
-          longitude: position.longitude, latitude: position.latitude);
+
+      return DataSuccess(CoordinatesModel(
+          longitude: position.longitude, latitude: position.latitude));
     }
 
-    return null;
+    return DataLocationException(LoactionException("Allow location"));
   }
 }

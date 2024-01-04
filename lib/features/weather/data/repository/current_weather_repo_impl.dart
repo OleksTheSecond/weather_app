@@ -24,14 +24,14 @@ class CurrentWeatherRepositoryImpl extends CurrentWeatherRepository {
       if (httpResponse.response.statusCode == HttpStatus.ok) {
         return DataSuccess(httpResponse.data);
       } else {
-        return DataException(DioException(
+        return DataApiException(DioException(
           requestOptions: httpResponse.response.requestOptions,
           response: httpResponse.response,
           error: httpResponse.response.statusMessage,
         ));
       }
     } on DioException catch (e) {
-      return DataException(e);
+      return DataApiException(e);
     }
   }
 }
