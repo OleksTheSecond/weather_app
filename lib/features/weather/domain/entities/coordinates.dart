@@ -1,11 +1,11 @@
 import 'package:equatable/equatable.dart';
 
 class CoordinatesEntity extends Equatable {
-  final double longtitude;
-  final double lattitude;
+  final double longitude;
+  final double latitude;
 
-  const CoordinatesEntity({required this.longtitude, required this.lattitude});
+  const CoordinatesEntity({required this.longitude, required this.latitude});
 
   @override
-  List<Object?> get props => [longtitude, lattitude];
+  List<Object?> get props => [longitude, latitude];
 }
