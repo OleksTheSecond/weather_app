@@ -4,5 +4,5 @@ import 'package:weather_app/features/weather/domain/entities/current_weather.dar
 
 abstract class CurrentWeatherRepository {
   Future<DataState<CurrentWeatherEntity>> getCurrentWeather(
-      CoordinatesEntity coordinates);
+      DataState<CoordinatesEntity> coordinates);
 }

@@ -14,12 +14,12 @@ class CurrentWeatherRepositoryImpl extends CurrentWeatherRepository {
 
   @override
   Future<DataState<CurrentWeatherModel>> getCurrentWeather(
-      CoordinatesEntity coordinates) async {
+      DataState<CoordinatesEntity> coordinates) async {
     try {
       final httpResponse = await _apiService.getCurrentWeather(
         apiKey: apiKey,
-        latitude: coordinates.latitude.toString(),
-        longitude: coordinates.longitude.toString(),
+        latitude: coordinates.data?.latitude.toString(),
+        longitude: coordinates.data?.longitude.toString(),
       );
       if (httpResponse.response.statusCode == HttpStatus.ok) {
         return DataSuccess(httpResponse.data);
@@ -32,6 +32,8 @@ class CurrentWeatherRepositoryImpl extends CurrentWeatherRepository {
       }
     } on DioException catch (e) {
       return DataApiException(e);
+    } on LoactionException catch (e) {
+      return DataLocationException(e);
     }
   }
 }
