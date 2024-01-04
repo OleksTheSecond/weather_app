@@ -6,9 +6,9 @@ class WindEntity extends Equatable {
     required this.deg,
     required this.gust,
   });
-  final double speed;
-  final int deg;
-  final double gust;
+  final double? speed;
+  final int? deg;
+  final double? gust;
 
   @override
   List<Object?> get props => [speed, deg, gust];

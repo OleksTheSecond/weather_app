@@ -12,7 +12,9 @@ class _WeatherAPIService implements WeatherAPIService {
   _WeatherAPIService(
     this._dio, {
     this.baseUrl,
-  });
+  }) {
+    baseUrl ??= 'https://api.openweathermap.org/data/2.5';
+  }
 
   final Dio _dio;
 
@@ -23,12 +25,14 @@ class _WeatherAPIService implements WeatherAPIService {
     String? latitude,
     String? longitude,
     String? apiKey,
+    String? units,
   }) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{
       r'lat': latitude,
       r'lon': longitude,
       r'appid': apiKey,
+      r'units': units,
     };
     queryParameters.removeWhere((k, v) => v == null);
     final _headers = <String, dynamic>{};

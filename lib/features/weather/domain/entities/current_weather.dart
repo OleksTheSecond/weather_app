@@ -24,17 +24,17 @@ class CurrentWeatherEntity extends Equatable {
   });
   final CoordinatesEntity coordinates;
   final List<WeatherEntity> weather;
-  final String base;
+  final String? base;
   final MainDescriptionEntity main;
-  final int visibility;
+  final int? visibility;
   final WindEntity wind;
   final CloudsEntity clouds;
-  final int time;
+  final int? time;
   final SystemParamsEntity sys;
-  final int timezone;
-  final int cityId;
-  final String cityName;
-  final int cod;
+  final int? timezone;
+  final int? cityId;
+  final String? cityName;
+  final int? cod;
 
   @override
   List<Object?> get props {

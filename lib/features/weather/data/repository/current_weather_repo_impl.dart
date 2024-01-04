@@ -18,6 +18,7 @@ class CurrentWeatherRepositoryImpl extends CurrentWeatherRepository {
     try {
       final httpResponse = await _apiService.getCurrentWeather(
         apiKey: apiKey,
+        units: units,
         latitude: coordinates.data?.latitude.toString(),
         longitude: coordinates.data?.longitude.toString(),
       );

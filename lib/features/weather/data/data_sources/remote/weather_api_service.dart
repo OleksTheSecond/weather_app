@@ -13,5 +13,6 @@ abstract class WeatherAPIService {
     @Query('lat') String? latitude,
     @Query('lon') String? longitude,
     @Query('appid') String? apiKey,
+    @Query('units') String? units,
   });
 }
