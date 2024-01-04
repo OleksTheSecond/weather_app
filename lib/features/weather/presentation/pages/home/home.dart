@@ -1,8 +1,11 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:lottie/lottie.dart';
 import 'package:weather_app/features/weather/presentation/bloc/current_weather/current_weather_bloc.dart';
+import 'package:weather_app/features/weather/presentation/bloc/current_weather/current_weather_event.dart';
 import 'package:weather_app/features/weather/presentation/bloc/current_weather/current_weather_state.dart';
+import 'package:weather_app/injection_container.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage({super.key});
@@ -10,12 +13,23 @@ class HomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text("Current Weather")),
-      body: _buildBody(),
+      appBar: AppBar(
+        title: Text("Current Weather"),
+        actions: [
+          IconButton(
+            onPressed: () {
+              BlocProvider.of<CurrentWeatherBloc>(context)
+                  .add(GetCurrentWeather());
+            },
+            icon: Icon(Icons.refresh),
+          ),
+        ],
+      ),
+      body: _buildBody(context),
     );
   }
 
-  _buildBody() {
+  _buildBody(BuildContext context) {
     return BlocBuilder<CurrentWeatherBloc, CurrentWeatherState>(
       builder: (_, state) {
         if (state is CurrentWeatherLoading) {
@@ -39,8 +53,20 @@ class HomePage extends StatelessWidget {
             child:
                 Column(mainAxisAlignment: MainAxisAlignment.center, children: [
               Text(data!.cityName!),
-              Text(data.main.temp.toString()),
-              Text(data.main.feelsLike.toString()),
+              Lottie.asset(
+                  "assets/lotti_animations/${data.weather[0].icon}.json"),
+              Text(
+                "Temperature ${data.main.temp.toString()}°C",
+                style: const TextStyle(fontWeight: FontWeight.bold),
+              ),
+              Text(
+                "Temperature feels like ${data.main.feelsLike.toString()}°C",
+                style: const TextStyle(fontWeight: FontWeight.bold),
+              ),
+              Text(
+                "Time ${DateTime.fromMillisecondsSinceEpoch(data.time! * 1000).hour}:${DateTime.fromMillisecondsSinceEpoch(data.time! * 1000).minute}",
+                style: const TextStyle(fontWeight: FontWeight.bold),
+              ),
             ]),
           );
         }
