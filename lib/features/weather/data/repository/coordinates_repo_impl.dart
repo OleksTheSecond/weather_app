@@ -16,7 +16,7 @@ class CoordinatesRepositoryImpl extends CoordinatesRepository {
         permision == LocationPermission.whileInUse) {
       final locationEnabled = await Geolocator.isLocationServiceEnabled();
       if (!locationEnabled) {
-        throw DataLocationException(
+        return DataLocationException(
             LoactionException("Enable location service"));
       }
 
@@ -27,6 +27,6 @@ class CoordinatesRepositoryImpl extends CoordinatesRepository {
           longitude: position.longitude, latitude: position.latitude));
     }
 
-    throw DataLocationException(LoactionException("Allow location"));
+    return DataLocationException(LoactionException("Allow location"));
   }
 }

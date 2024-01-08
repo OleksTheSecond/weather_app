@@ -12,7 +12,13 @@ abstract class CurrentWeatherState extends Equatable {
       {this.currentWeather, this.apiException, this.loactionException});
 
   @override
-  List<Object> get props => [currentWeather!];
+  List<Object> get props {
+    if (apiException != null) return [currentWeather!, apiException!];
+    if (loactionException != null && currentWeather != null)
+      return [currentWeather!, loactionException!];
+    if (loactionException != null) return [loactionException!];
+    return [currentWeather!];
+  }
 }
 
 class CurrentWeatherLoading extends CurrentWeatherState {

@@ -15,6 +15,10 @@ class CurrentWeatherRepositoryImpl extends CurrentWeatherRepository {
   @override
   Future<DataState<CurrentWeatherModel>> getCurrentWeather(
       DataState<CoordinatesEntity> coordinates) async {
+    if (coordinates is DataLocationException) {
+      return DataLocationException(coordinates.loactionException!);
+    }
+
     try {
       final httpResponse = await _apiService.getCurrentWeather(
         apiKey: apiKey,
@@ -33,8 +37,6 @@ class CurrentWeatherRepositoryImpl extends CurrentWeatherRepository {
       }
     } on DioException catch (e) {
       return DataApiException(e);
-    } on LoactionException catch (e) {
-      return DataLocationException(e);
     }
   }
 }

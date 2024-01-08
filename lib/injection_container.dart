@@ -1,5 +1,6 @@
 import 'package:get_it/get_it.dart';
 import 'package:dio/dio.dart';
+import 'package:weather_app/core/resources/data_state.dart';
 import 'package:weather_app/features/weather/data/data_sources/remote/weather_api_service.dart';
 import 'package:weather_app/features/weather/data/repository/coordinates_repo_impl.dart';
 import 'package:weather_app/features/weather/data/repository/current_weather_repo_impl.dart';
@@ -21,4 +22,7 @@ Future<void> initDependencies() async {
 
   locator
       .registerFactory<CurrentWeatherBloc>(() => CurrentWeatherBloc(locator()));
+
+  locator
+      .registerFactory<LoactionException>(() => LoactionException(locator()));
 }
