@@ -11,6 +11,12 @@ class CurrentWeatherBloc
   CurrentWeatherBloc(this._getCurrentWeatherUseCase)
       : super(const CurrentWeatherLoading()) {
     on<GetCurrentWeather>(_onGetWeather);
+    on<AwaitCurrentWeather>(_awaitCirrentWeather);
+  }
+
+  void _awaitCirrentWeather(
+      AwaitCurrentWeather event, Emitter<CurrentWeatherState> emitter) {
+    emit(CurrentWeatherLoading());
   }
 
   void _onGetWeather(
