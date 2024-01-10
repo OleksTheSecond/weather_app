@@ -19,6 +19,7 @@ class ExceptionMessage extends StatelessWidget {
           ),
           Text(
             message,
+            textAlign: TextAlign.center,
             style: TextStyle(color: theme.colorScheme.error, fontSize: 30),
           ),
         ],

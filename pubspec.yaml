@@ -25,11 +25,29 @@ dev_dependencies:
   retrofit_generator: '>=7.0.0 <8.0.0'  
   build_runner: '>=2.3.0 <4.0.0'
   json_serializable: ^6.6.2
+  flutter_launcher_icons: ^0.13.1
+
+flutter_launcher_icons:
+  android: "launcher_icon"
+  ios: true
+  image_path: "assets/icon/sun.png"
+  min_sdk_android: 21 
+  web:
+    generate: true
+    image_path: "assets/icon/sun.png"
+  windows:
+    generate: true
+    image_path: "assets/icon/sun.png"
+    icon_size: 48 
+  macos:
+    generate: true
+    image_path: "assets/icon/sun.png"  
 
 flutter:
   uses-material-design: true
   assets:
     - assets/lottie_animations/
+    - assets/icon/
   fonts:
     - family: Poppins
       fonts:
