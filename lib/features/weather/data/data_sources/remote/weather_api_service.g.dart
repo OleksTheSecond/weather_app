@@ -26,6 +26,7 @@ class _WeatherAPIService implements WeatherAPIService {
     String? longitude,
     String? apiKey,
     String? units,
+    String? lang,
   }) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{
@@ -33,6 +34,7 @@ class _WeatherAPIService implements WeatherAPIService {
       r'lon': longitude,
       r'appid': apiKey,
       r'units': units,
+      r'lang': lang,
     };
     queryParameters.removeWhere((k, v) => v == null);
     final _headers = <String, dynamic>{};

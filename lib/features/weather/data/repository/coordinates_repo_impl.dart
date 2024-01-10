@@ -27,6 +27,7 @@ class CoordinatesRepositoryImpl extends CoordinatesRepository {
           longitude: position.longitude, latitude: position.latitude));
     }
 
-    return DataLocationException(LoactionException("Allow location"));
+    return DataLocationException(
+        LoactionException("Confirm location permission"));
   }
 }

@@ -1,14 +1,12 @@
 import 'package:flutter/cupertino.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:lottie/lottie.dart';
-import 'package:weather_app/features/weather/domain/entities/current_weather.dart';
 import 'package:weather_app/features/weather/presentation/bloc/current_weather/current_weather_bloc.dart';
 import 'package:weather_app/features/weather/presentation/bloc/current_weather/current_weather_event.dart';
 import 'package:weather_app/features/weather/presentation/bloc/current_weather/current_weather_state.dart';
-import 'package:weather_app/features/weather/presentation/pages/home/weather_details_page.dart';
-import 'package:weather_app/injection_container.dart';
+import 'package:weather_app/features/weather/presentation/widgets/home_page_widgets/exception_message.dart';
+import 'package:weather_app/features/weather/presentation/widgets/home_page_widgets/loading_indicator.dart';
+import 'package:weather_app/features/weather/presentation/widgets/home_page_widgets/weather_body.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage({super.key});
@@ -34,88 +32,26 @@ class HomePage extends StatelessWidget {
     );
   }
 
-  _buildLoadingState() {
-    return const Center(
-      child: CircularProgressIndicator(
-        strokeWidth: 5,
-      ),
-    );
-  }
-
-  _buildException(String message) {
-    return Center(
-      child: Text(message),
-    );
-  }
-
-  _buildWeatherLoaded(CurrentWeatherEntity data, BuildContext context) {
-    return Center(
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-        children: [
-          Text(
-            data.weather[0].main.toString(),
-            style: const TextStyle(
-              fontWeight: FontWeight.w600,
-              fontSize: 20,
-            ),
-          ),
-          Hero(
-            tag: 'weather_lottie',
-            child: Lottie.asset(
-                "assets/lottie_animations/${data.weather[0].icon}.json"),
-          ),
-          Text(
-            "Temperature ${data.main.temp.toString()}°C",
-            style: const TextStyle(
-              fontWeight: FontWeight.w500,
-            ),
-          ),
-          CupertinoButton(
-            color: Theme.of(context).colorScheme.primary,
-            onPressed: () {
-              Navigator.of(context).push(
-                MaterialPageRoute(
-                  builder: (context) => WeatherDetailsPage(
-                    title: "Current Weather",
-                    weather: data,
-                  ),
-                ),
-              );
-            },
-            child: const Text(
-              'Tap for details',
-              style: TextStyle(fontWeight: FontWeight.w600),
-            ),
-          ),
-        ],
-      ),
-    );
-  }
-
   _buildBody(BuildContext context) {
     return BlocBuilder<CurrentWeatherBloc, CurrentWeatherState>(
       builder: (_, state) {
         switch (state.runtimeType) {
           case CurrentWeatherLoading:
-            return _buildLoadingState();
+            return const LoadingIndicator();
           case CurrentWeatherApiException:
-            return _buildException(state.apiException!.message.toString());
+            return ExceptionMessage(
+                message: state.apiException!.message.toString());
           case CurrentWeatherLocationException:
-            return _buildException(state.loactionException!.message.toString());
+            return ExceptionMessage(
+                message: state.loactionException!.message.toString());
           case CurrentWeatherLoaded:
             final data = state.currentWeather;
             if (data != null) {
-              return _buildWeatherLoaded(data, context);
+              return WeatherBody(data: data);
             }
-          default:
-            return Container(
-              color: Colors.red,
-            );
         }
-        return Container(
-          color: Colors.red,
-        );
+        return const ExceptionMessage(
+            message: 'Something go wrong, contact develeper');
       },
     );
   }

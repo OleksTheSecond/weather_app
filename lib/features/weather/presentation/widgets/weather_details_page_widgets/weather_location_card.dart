@@ -20,11 +20,12 @@ class WeatherLocationCard extends StatelessWidget {
     final descriptionLine =
         '${weather.description![0].toUpperCase()}${weather.description!.substring(1).toLowerCase()}';
     final cityLine = cityName.isEmpty ? '' : 'in $cityName';
+    final timeLine =
+        '${time.hour <= 9 ? "0${time.hour}" : time.hour}:${time.minute <= 9 ? "0${time.minute}" : time.minute}';
     return WeatherCard(
       child: ListTile(
         title: Text(weather.main!),
-        subtitle:
-            Text('$descriptionLine $cityLine at ${time.hour}:${time.minute}'),
+        subtitle: Text('$descriptionLine $cityLine at  $timeLine'),
         trailing: Hero(
           tag: 'weather_lottie',
           child: Lottie.asset("assets/lottie_animations/${weather.icon}.json"),

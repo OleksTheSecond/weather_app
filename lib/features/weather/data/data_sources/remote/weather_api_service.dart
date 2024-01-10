@@ -14,5 +14,6 @@ abstract class WeatherAPIService {
     @Query('lon') String? longitude,
     @Query('appid') String? apiKey,
     @Query('units') String? units,
+    @Query('lang') String? lang,
   });
 }

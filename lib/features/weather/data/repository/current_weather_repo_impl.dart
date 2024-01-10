@@ -25,6 +25,7 @@ class CurrentWeatherRepositoryImpl extends CurrentWeatherRepository {
         units: units,
         latitude: coordinates.data?.latitude.toString(),
         longitude: coordinates.data?.longitude.toString(),
+        lang: lang,
       );
       if (httpResponse.response.statusCode == HttpStatus.ok) {
         return DataSuccess(httpResponse.data);
